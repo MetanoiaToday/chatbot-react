@@ -6,9 +6,17 @@ import SendMessageForm from './components/SendMessageForm';
 import RoomList from './components/RoomList';
 import NewRoomForm from './components/NewRoomForm';
 import { tokenURL, instanceLocator } from './config';
+import { tsConstructorType } from '@babel/types/lib';
 
 
 function App() {
+  constructor() {
+    super()
+    this.state = {
+      messages: []
+    }
+  }
+
 
   componentDidMount() {
     const chatManager = new Chatkit.ChatManager({
@@ -28,6 +36,9 @@ function App() {
           hooks: {
             onNewMessage: messgae => {
               console.log('message.text ', message.text);
+              this.setState({
+                message: [...this.state.messages, message]
+              })
             }
           }
         })
